@@ -1,7 +1,9 @@
 "use client"
-
+import "../globals.css"
 import type { NextPage } from "next";
 import { useTheme } from "next-themes";
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
     ResizableHandle,
     ResizablePanel,
@@ -40,14 +42,14 @@ import {
     NavigationMenuTrigger,
     NavigationMenuViewport,
   } from "@/components/ui/navigation-menu"
+  import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-  
 
 const HomePage: NextPage = ({children} : {children:React.ReactNode}) => {
     const { setTheme } = useTheme();
-
+    
     return (
-      <>
+      <div className="h-screen w-screen overflow-hidden">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl py-2 flex items-center font-medium px-4">
             <YouTubeIcon className="h-14 w-14" />
@@ -55,14 +57,14 @@ const HomePage: NextPage = ({children} : {children:React.ReactNode}) => {
           </h1>
           <NavigationMenu>
             <NavigationMenuList>
-                <NavigationMenuItem>
+              <NavigationMenuItem>
                 <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                    <NavigationMenuLink>Link</NavigationMenuLink>
+                  <NavigationMenuLink>Link</NavigationMenuLink>
                 </NavigationMenuContent>
-                </NavigationMenuItem>
+              </NavigationMenuItem>
             </NavigationMenuList>
-           </NavigationMenu>
+          </NavigationMenu>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="mx-4">
@@ -88,18 +90,21 @@ const HomePage: NextPage = ({children} : {children:React.ReactNode}) => {
         <Separator className="" />
         <ResizablePanelGroup
           direction="horizontal"
-          className="w-screen h-screen"
+          className="w-full h-[85] overflow-hidden"
         >
-          <ResizablePanel
-            className="h-full min-w-[5vw] max-w-[15vw]"
-            defaultSize={15}
-          >
+          <ResizablePanel className="min-w-[5vw] max-w-[15vw]" defaultSize={15}>
             <div className="flex-col px-3 py-2 gap-y-2">
-              <Button variant="outline" className="flex w-full items-center gap-2 font-medium justify-start my-1">
-                <WorkspacesIcon className="h-8 w-8"/>
+              <Button
+                variant="outline"
+                className="flex w-full items-center gap-2 font-medium justify-start my-1"
+              >
+                <WorkspacesIcon className="h-8 w-8" />
                 <div>Collaborations</div>
               </Button>
-              <Button variant="outline" className="flex w-full items-center gap-2 font-medium justify-start my-1">
+              <Button
+                variant="outline"
+                className="flex w-full items-center gap-2 font-medium justify-start my-1"
+              >
                 <AddTaskIcon className="h-8 w-8" />
                 <div>Approval</div>
               </Button>
@@ -107,58 +112,77 @@ const HomePage: NextPage = ({children} : {children:React.ReactNode}) => {
                 <SubscriptionsIcon className="h-8 w-8" />
                 <div>Youtube</div>
               </Button>
-              <Separator className="my-2"/>
-              <Button variant="outline" className="flex w-full items-center gap-2 font-medium justify-start my-1">
+              <Separator className="my-2" />
+              <Button
+                variant="outline"
+                className="flex w-full items-center gap-2 font-medium justify-start my-1"
+              >
                 <TagIcon className="h-8 w-8" />
                 <div>Youtube 1</div>
               </Button>
-              <Button variant="outline" className="flex w-full items-center gap-2 font-medium justify-start my-1">
+              <Button
+                variant="outline"
+                className="flex w-full items-center gap-2 font-medium justify-start my-1"
+              >
                 <TagIcon className="h-8 w-8" />
                 <div>Youtube 2</div>
               </Button>
-
             </div>
           </ResizablePanel>
-          <ResizableHandle withHandle />
-          <ResizablePanel className="min-w-[30vw] h-full" defaultSize={50}>
-            <Card className="m-2">
-                <CardHeader>
-                    <CardTitle>Aditya Kale</CardTitle>
-                    <CardDescription>Video for Approval</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <p>The Fall of Indian Democracy in parliament of India</p>
-                </CardContent>
-                <CardFooter>Need an Approval in an hour</CardFooter>
-            </Card>
-            <Card className="m-2">
-                <CardHeader>
-                    <CardTitle>Aditya Kale</CardTitle>
-                    <CardDescription>Video for Approval</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <p>The Fall of Indian Democracy in parliament of India</p>
-                </CardContent>
-                <CardFooter>Need an Approval in an hour</CardFooter>
-            </Card>
-            <Card className="m-2">
-                <CardHeader>
-                    <CardTitle>Aditya Kale</CardTitle>
-                    <CardDescription>Video for Approval</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <p>The Fall of Indian Democracy in parliament of India</p>
-                </CardContent>
-                <CardFooter>Need an Approval in an hour</CardFooter>
-            </Card>
+          <ResizableHandle withHandle className="h-[85vh]" />
+          <ResizablePanel className="min-w-[30vw] h-[85vh]" defaultSize={50}>
+            {children}
           </ResizablePanel>
-          <ResizableHandle withHandle />
-          <ResizablePanel className="min-w-[30vw] h-full" defaultSize={30}>
-            Three
+          <ResizableHandle withHandle className="h-[85vh]" />
+          <ResizablePanel className="min-w-[30vw] h-[85vh]" defaultSize={30}>
+            <div className="p-4">
+              <div className="flex justify-between my-4">
+                <div className="flex gap-4 items-center">
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-col">
+                    <p className="text-sm  leading-none my-1 font-bold">
+                      Aditya kale
+                    </p>
+                    <p className="text-sm font-medium leading-none my-1">
+                      email:co.2021.askale@bitwardha.ac.in
+                    </p>
+                  </div>
+                </div>
+                <div className="text-sm text-muted-foreground">28-aug-2024</div>
+              </div>
+              <Separator />
+              <div className="flex-col p-4 px-5">
+                <input
+                  id="input"
+                  type="input"
+                  className="w-full my-2 text-xl text-muted-foreground"
+                  placeholder="Enter Title"
+                  style={{ border: "none", outline: "none" }}
+                />
+                <input
+                  id="input"
+                  type="input"
+                  className="w-full my-2 text-sm italic"
+                  placeholder="Add Tags"
+                  style={{ border: "none", outline: "none" }}
+                />
+                <input
+                  id="input"
+                  type="input"
+                  className="w-full my-2 text-md"
+                  placeholder="Add Description"
+                  style={{ border: "none", outline: "none" }}
+                />
+                <Input id="video" type="file" className="w-[15vw]"/>
+              </div>
+            </div>
           </ResizablePanel>
         </ResizablePanelGroup>
-        {children}
-      </>
+        <Separator className="py-5" />
+      </div>
     );
 }
 export default HomePage;
