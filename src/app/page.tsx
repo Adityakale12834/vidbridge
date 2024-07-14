@@ -25,7 +25,9 @@ import {
 import { Separator } from "@/components/ui/separator";
 // import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
-
+import { Boxes } from "@/components/ui/background-boxes"
+import { MovingButton } from "@/components/ui/moving-border";
+import { TracingBeamDemo } from "@/components/ui/homepage";
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Alert Dialog",
@@ -166,11 +168,29 @@ export default function Home() {
         </div>
       </div>
       <Separator className="" />
+      <TracingBeamDemo/>
+      <div className="h-[70vh] w-full relative  overflow-hidden bg-slate-900 flex flex-col items-center justify-center ">
+      <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+ 
+      <Boxes />
+      <h1 className={cn("md:text-4xl text-2xl text-white relative z-20 font-bold")}>
+        Vidbridge 
+      </h1>
+      <p className="text-center mt-2 text-neutral-300 relative z-20">
+      The perfect youtube workspace for you
+      </p>
+      <div className="my-2">
+      <MovingButton
+        borderRadius="1.75rem"
+        className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+      >
+        Borders are cool
+      </MovingButton>
+    </div>
+    </div>
     </>
   );
 }
-
-
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,

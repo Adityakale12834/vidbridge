@@ -1,5 +1,7 @@
 "use client"
 import "../globals.css"
+import { cn } from "@/lib/utils"
+import { format } from "date-fns"
 import type { NextPage } from "next";
 import { useTheme } from "next-themes";
 import { Input } from "@/components/ui/input"
@@ -43,11 +45,41 @@ import {
     NavigationMenuViewport,
   } from "@/components/ui/navigation-menu"
   import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-
-const HomePage: NextPage = ({children} : {children:React.ReactNode}) => {
+  import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+  } from "@/components/ui/drawer"
+  import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog"
+  import { Calendar as CalendarIcon } from "lucide-react"
+  import { Calendar } from "@/components/ui/calendar"
+  import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+  } from "@/components/ui/popover"
+  
+  interface HomePageProps {
+    children: React.ReactNode;
+  }
+  
+const HomePage: NextPage<HomePageProps> = (children) => {
     const { setTheme } = useTheme();
-    
+    const [date, setDate] = React.useState<Date>()
+
     return (
       <div className="h-screen w-screen overflow-hidden">
         <div className="flex items-center justify-between">
@@ -154,29 +186,101 @@ const HomePage: NextPage = ({children} : {children:React.ReactNode}) => {
                 <div className="text-sm text-muted-foreground">28-aug-2024</div>
               </div>
               <Separator />
-              <div className="flex-col p-4 px-5">
-                <input
-                  id="input"
-                  type="input"
-                  className="w-full my-2 text-xl text-muted-foreground"
-                  placeholder="Enter Title"
-                  style={{ border: "none", outline: "none" }}
-                />
-                <input
-                  id="input"
-                  type="input"
-                  className="w-full my-2 text-sm italic"
-                  placeholder="Add Tags"
-                  style={{ border: "none", outline: "none" }}
-                />
-                <input
-                  id="input"
-                  type="input"
-                  className="w-full my-2 text-md"
-                  placeholder="Add Description"
-                  style={{ border: "none", outline: "none" }}
-                />
-                <Input id="video" type="file" className="w-[15vw]"/>
+              <div className="flex-col p-2">
+                <Card className="border-0 shadow-none">
+                  <CardHeader>
+                    <CardTitle>
+                      <input
+                        id="input"
+                        type="input"
+                        className="w-full text-xl text-muted-foreground"
+                        placeholder="Enter Title"
+                        style={{ border: "none", outline: "none" }}
+                      />
+                    </CardTitle>
+                    <CardDescription>
+                      <input
+                        id="input"
+                        type="input"
+                        className="w-full text-md"
+                        placeholder="Add Description"
+                        style={{ border: "none", outline: "none" }}
+                      />
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="secondary">Add Youtube</Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle>Edit profile</DialogTitle>
+                          <DialogDescription>
+                            Make changes to your profile here. Click save when
+                            youre done.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="name" className="text-right">
+                              Name
+                            </Label>
+                            <Input
+                              id="name"
+                              defaultValue="Pedro Duarte"
+                              className="col-span-3"
+                            />
+                          </div>
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="username" className="text-right">
+                              Username
+                            </Label>
+                            <Input
+                              id="username"
+                              defaultValue="@peduarte"
+                              className="col-span-3"
+                            />
+                          </div>
+                        </div>
+                        <DialogFooter>
+                          <Button type="submit">Save changes</Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                    <Popover >
+                      <h1 className="mt-2">Schedule</h1>
+                      <PopoverTrigger asChild className="my-2">
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[280px] justify-start text-left font-normal",
+                            !date && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {date ? (
+                            format(date, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={date}
+                          onSelect={setDate}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </CardContent>
+                  <CardFooter className="flex gap-2">
+                    <Button variant="outline">Cancel</Button>
+                    <Button>Save</Button>
+                  </CardFooter>
+                </Card>
               </div>
             </div>
           </ResizablePanel>
