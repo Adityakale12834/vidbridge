@@ -76,7 +76,7 @@ import {
     children: React.ReactNode;
   }
   
-const HomePage: NextPage<HomePageProps> = (children) => {
+const HomePage: NextPage<HomePageProps> = ({children}) => {
     const { setTheme } = useTheme();
     const [date, setDate] = React.useState<Date>()
 
