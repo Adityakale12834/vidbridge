@@ -1,9 +1,9 @@
 "use client"
 
+import { useForm } from "react-hook-form"
 import { NextPage } from 'next'
 import React from 'react' 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import { z } from "zod"
  
 import { Button } from "@/components/ui/button"
@@ -36,10 +36,10 @@ import { Input } from "@/components/ui/input"
 const formSchema = z.object({
   email: z.string().email({message:"Valid Email is required"}), 
   password: z.string().min(6, {message:"Password is required"}),
-})
+});
 
 
-const verifyEmail : NextPage = () => {
+const VerifyEmail : NextPage = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -99,4 +99,4 @@ const verifyEmail : NextPage = () => {
   );
 }
 
-export default verifyEmail;
+export default VerifyEmail;
