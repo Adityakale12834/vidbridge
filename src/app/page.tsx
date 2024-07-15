@@ -28,6 +28,8 @@ import { cn } from "@/lib/utils"
 import { Boxes } from "@/components/ui/background-boxes"
 import { MovingButton } from "@/components/ui/moving-border";
 import { TracingBeamDemo } from "@/components/ui/homepage";
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Alert Dialog",
@@ -72,11 +74,14 @@ export default function Home() {
   return (
     <>
       <div className="flex items-center justify-between px-8">
-        <h1 className="text-2xl py-2 flex items-center font-medium px-4">
+        <h1 className="text-2xl py-2 flex items-center font-medium">
           <YouTubeIcon className="h-14 w-14" />
           <span>Vidbridge</span>
         </h1>
-        <div className="flex gap-5 px-5">
+        <div className="hidden menu-icon ">
+          <MenuOutlinedIcon/>
+        </div>
+        <div className="flex gap-5 px-5 nav-items">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
